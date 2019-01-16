@@ -1,0 +1,29 @@
+{
+	"id": "83f75230-10a3-4cbe-8c6d-7238b75ce535",
+	"values": [
+		{
+			"key": "bookNamekey",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "isbnKey",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "bookId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Author",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"name": "AutomationDemo Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2019-01-09T06:37:20.686Z",
+	"_postman_exported_using": "Postman/6.7.0"
+}
