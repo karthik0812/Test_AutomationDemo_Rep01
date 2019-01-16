@@ -1,0 +1,251 @@
+{
+  "info": {
+    "_postman_id": "ed48f894-89b2-48c3-9847-c612b457c255",
+    "name": "PostmanDemoWithCSVfile",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "_postman_id": "d1650e6d-5f85-4c3a-9d81-065d0b2aa785",
+      "name": "ADD Book",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "2a3071b8-8135-43c7-978f-6d5e05a90374",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "aefc06e9-38c5-44e2-8e55-1b24d7687792",
+            "exec": [
+              "//Statuse Code Assertions",
+              "",
+              "var jsonData = JSON.parse(responseBody);",
+              "var errorMessage = jsonData.msg;",
+              "",
+              "//Set Variables ",
+              "if (responseCode.code == 200) ",
+              "{",
+              "    tests[\"Status code is: \"+responseCode.code] = responseCode.code === 200;",
+              "    ",
+              " ",
+              "postman.setGlobalVariable(\"bookId\", jsonData.ID);",
+              "",
+              "tests[jsonData.Msg] = true;",
+              "tests[\"Book ID: \"+jsonData.ID] = true;",
+              "",
+              "}else{",
+              "tests[\"Book not added successfully\"] =false;",
+              "tests[\"Response code: \"+responseCode.code] =false;",
+              "tests[\"Error message: \"+errorMessage] = false;",
+              "}",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\"name\":\"{{bookNamekey}}\",\r\n\"isbn\":\"{{isbnKey}}\",\r\n\"aisle\":\"{{Aisle}}\",\r\n\"author\":\"{{Author}}\"\r\n}"
+        },
+        "url": "{{BaseURL}}/Library/Addbook.php"
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "003c99e5-9468-473f-9b9c-748a415f53a5",
+      "name": "Get By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "4fa44cf3-d612-4d32-aab5-0c62684a456a",
+            "exec": [
+              "//Statuse Code Assertions",
+              "",
+              "var jsonData = JSON.parse(responseBody);",
+              "var errorMessage = jsonData.msg;",
+              "",
+              "//Set Variables ",
+              "if (responseCode.code == 200) ",
+              "{",
+              "    tests[\"Status code is: \"+responseCode.code] = responseCode.code === 200;",
+              "    postman.setGlobalVariable(\"Author\", jsonData[0].author);",
+              "    ",
+              "    tests[\"Book searched Successfully with ID\"] = true;",
+              "    tests[\"Book Name: \"+jsonData[0].book_name] = true;",
+              "    tests[\"ISBN: \"+jsonData[0].isbn] = true;",
+              "    tests[\"AISLE: \"+jsonData[0].aisle] = true;",
+              "    tests[\"Author: \"+jsonData[0].author] = true;",
+              "    ",
+              "}else{",
+              "tests[\"Book not searched successfully\"] =false;",
+              "tests[\"Response code: \"+responseCode.code] =false;",
+              "tests[\"Error message: \"+errorMessage] = false;",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{BaseURL}}/Library/GetBook.php?ID={{bookId}}",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "Library",
+            "GetBook.php"
+          ],
+          "query": [
+            {
+              "key": "ID",
+              "value": "{{bookId}}",
+              "equals": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "8bfa85d5-0eca-4cfa-8db7-5543fea905ce",
+      "name": "Get By Author Name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "814b3942-9ed9-483c-ac44-dd66ea0d6888",
+            "exec": [
+              "//Statuse Code Assertions",
+              "",
+              "var jsonData = JSON.parse(responseBody);",
+              "var errorMessage = jsonData.msg;",
+              "",
+              "//Set Variables ",
+              "if (responseCode.code == 200) ",
+              "{",
+              "    tests[\"Status code is: \"+responseCode.code] = responseCode.code === 200;",
+              "   ",
+              "    ",
+              "    tests[\"Books searched Successfully by Author\"] = true;",
+              "    ",
+              "}else{",
+              "tests[\"Book not searched successfully\"] =false;",
+              "tests[\"Response code: \"+responseCode.code] =false;",
+              "tests[\"Error message: \"+errorMessage] = false;",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{BaseURL}}/Library/GetBook.php?AuthorName={{Author}}",
+          "host": [
+            "{{BaseURL}}"
+          ],
+          "path": [
+            "Library",
+            "GetBook.php"
+          ],
+          "query": [
+            {
+              "key": "AuthorName",
+              "value": "{{Author}}",
+              "equals": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "_postman_id": "ea48d7a5-87d0-40d7-b20e-9757219a1543",
+      "name": "Delete Book",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "06f21665-5a9f-4b0b-a641-86939eb1188c",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "",
+              "if (responseCode.code == 200) ",
+              "{",
+              "    tests[\"Status code is: \"+responseCode.code] = responseCode.code === 200;",
+              "    var SuccessMessage = jsonData.msg;",
+              "    tests[SuccessMessage] = true;",
+              "   ",
+              "    ",
+              "}else{",
+              "    var ErrorMessage = jsonData.msg;",
+              "    tests[ErrorMessage] = false;",
+              "    tests[\"Response code: \"+responseCode.code] =false;",
+              "",
+              "}",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n \r\n\"ID\" : \"{{bookId}}\"\r\n \r\n}"
+        },
+        "url": "{{BaseURL}}/Library/DeleteBook.php"
+      },
+      "response": []
+    }
+  ]
+}
